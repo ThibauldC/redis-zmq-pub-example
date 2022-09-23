@@ -20,8 +20,11 @@ public class RedisPubApplication implements CommandLineRunner {
 	@Value("${data.path}")
 	private String path;
 
-	@Value("${redis.topic}")
-	private String topic;
+	@Value("${redis.first-topic}")
+	private String firstTopic;
+
+	@Value("${redis.second-topic}")
+	private String secondTopic;
 
 	@Autowired
 	private ObjectMapper mapper;
@@ -35,11 +38,26 @@ public class RedisPubApplication implements CommandLineRunner {
 
 	@SneakyThrows
 	public void run(String... args){
-		List<PersonInfo> personInfos = Arrays.asList(
+		List<PersonInfo> infos = Arrays.asList(
 				mapper.readValue(Paths.get(path).toFile(), PersonInfo[].class)
 		);
 
-		redisMessagePublisher.publish(personInfos.get(1).toString(), ChannelTopic.of(topic));
+		List<PersonInfo> infosFirstTopic = infos.subList(0, infos.size()/2);
+		List<PersonInfo> infosSecondTopic = infos.subList(infos.size()/2, infos.size());
+
+		ChannelTopic topic1 = ChannelTopic.of(firstTopic);
+		ChannelTopic topic2 = ChannelTopic.of(secondTopic);
+
+
+		for(PersonInfo info: infosFirstTopic){
+			redisMessagePublisher.publish(mapper.writeValueAsString(info), topic1);
+		}
+
+		for(PersonInfo info: infosSecondTopic){
+			redisMessagePublisher.publish(mapper.writeValueAsString(info), topic2);
+		}
+
+		System.out.println("All messages sent successfully!");
 	}
 
 }
