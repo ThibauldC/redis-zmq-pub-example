@@ -1,13 +1,13 @@
-package com.bedef.redispub;
-
-import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
-
-@SpringBootTest
-class RedisPubApplicationTests {
-
-	@Test
-	void contextLoads() {
-	}
-
-}
+//package com.bedef.redispub;
+//
+//import org.junit.jupiter.api.Test;
+//import org.springframework.boot.test.context.SpringBootTest;
+//
+//@SpringBootTest
+//class RedisPubApplicationTests {
+//
+//	@Test
+//	void contextLoads() {
+//	}
+//
+//}
