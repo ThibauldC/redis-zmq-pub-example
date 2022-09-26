@@ -1,7 +1,6 @@
 #redis:
 #  host: localhost
 #  port: 6379
-#  first-topic: fake-topic
-#  second-topic: topic-fake
+#  stream: fake-stream
 #data:
 #  path: fake/path

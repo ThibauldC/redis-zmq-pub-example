@@ -34,3 +34,5 @@ build/
 
 src/main/resources/data.json
 .DS_Store
+
+redis.conf
