@@ -10,6 +10,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.nio.file.Paths;
+import java.util.Arrays;
 
 @SpringBootApplication
 public class RedisPubApplication implements CommandLineRunner {
@@ -34,7 +35,7 @@ public class RedisPubApplication implements CommandLineRunner {
 	public void run(String... args){
 		PersonInfo[] infos = mapper.readValue(Paths.get(path).toFile(), PersonInfo[].class);
 
-		for(PersonInfo info: infos){
+		for(PersonInfo info: Arrays.stream(infos).toList().subList(0, 3)){
 			redisMessagePublisher.publish(mapper.writeValueAsString(info), streamName);
 		}
 
