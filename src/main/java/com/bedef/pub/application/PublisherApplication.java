@@ -39,7 +39,7 @@ public class PublisherApplication implements CommandLineRunner {
 		List<String> messages = Arrays.stream(infos)
 				.map(this::infoToString)
 				.toList()
-				.subList(0, 3);
+				.subList(0, 5);
 
 		messagePublisher.publish(messages, channel);
 
