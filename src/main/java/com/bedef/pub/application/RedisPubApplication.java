@@ -11,21 +11,21 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.nio.file.Paths;
 import java.util.Arrays;
-
+import java.util.List;
 @SpringBootApplication
 public class RedisPubApplication implements CommandLineRunner {
 
 	@Value("${data.path}")
 	private String path;
 
-	@Value("${redis.stream}")
-	private String streamName;
+	@Value("${publisher.channel}")
+	private String channel;
 
 	@Autowired
 	private ObjectMapper mapper;
 
 	@Autowired
-	RedisMessagePublisher redisMessagePublisher;
+	MessagePublisher messagePublisher;
 
 	public static void main(String[] args) {
 		SpringApplication.run(RedisPubApplication.class, args);
@@ -35,11 +35,18 @@ public class RedisPubApplication implements CommandLineRunner {
 	public void run(String... args){
 		PersonInfo[] infos = mapper.readValue(Paths.get(path).toFile(), PersonInfo[].class);
 
-		for(PersonInfo info: Arrays.stream(infos).toList().subList(0, 3)){
-			redisMessagePublisher.publish(mapper.writeValueAsString(info), streamName);
-		}
+		List<String> messages = Arrays.stream(infos)
+				.map(this::infoToString)
+				.toList()
+				.subList(0, 3);
+
+		messagePublisher.publish(messages, channel);
 
 		System.out.println("All messages sent successfully!");
 	}
 
+	@SneakyThrows
+	private String infoToString(PersonInfo info){
+		return this.mapper.writeValueAsString(info);
+	}
 }
