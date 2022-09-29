@@ -1,4 +1,4 @@
-package com.bedef.redispub.application.config;
+package com.bedef.pub.application.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.context.annotation.Bean;

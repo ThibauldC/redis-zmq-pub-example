@@ -1,6 +1,6 @@
-package com.bedef.redispub.application;
+package com.bedef.pub.application;
 
-import com.bedef.redispub.domain.PersonInfo;
+import com.bedef.pub.domain.PersonInfo;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,8 +12,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.List;
+
 @SpringBootApplication
-public class RedisPubApplication implements CommandLineRunner {
+public class PublisherApplication implements CommandLineRunner {
 
 	@Value("${data.path}")
 	private String path;
@@ -28,7 +29,7 @@ public class RedisPubApplication implements CommandLineRunner {
 	MessagePublisher messagePublisher;
 
 	public static void main(String[] args) {
-		SpringApplication.run(RedisPubApplication.class, args);
+		SpringApplication.run(PublisherApplication.class, args);
 	}
 
 	@SneakyThrows

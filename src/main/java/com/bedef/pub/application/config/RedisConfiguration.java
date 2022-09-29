@@ -1,4 +1,4 @@
-package com.bedef.redispub.application.config;
+package com.bedef.pub.application.config;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;

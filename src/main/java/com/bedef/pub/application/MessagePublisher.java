@@ -1,4 +1,4 @@
-package com.bedef.redispub.application;
+package com.bedef.pub.application;
 
 import java.util.List;
 
